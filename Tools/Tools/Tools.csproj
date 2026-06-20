@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.5.26302.115" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ControlLibrary\Buttons\AppIconButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Buttons\AppPrimaryButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Buttons\AppSecondaryButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Containers\AppGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Containers\AppPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Controls\AppCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Controls\AppTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Layouts\AppTableLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ControlLibrary\Texts\AppLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Texts\AppNormalText.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ControlLibrary\Texts\AppRichTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
