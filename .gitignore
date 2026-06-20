@@ -1,0 +1,21 @@
+## --- Build Artifacts ---
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+
+## --- Visual Studio Tooling & User Settings ---
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## --- Generated Files & Cache ---
+*.log
+*.cache
+*.tmp
+
+## --- ReSharper or other extensions (Optional) ---
+_ReSharper*/
+*.resharper
