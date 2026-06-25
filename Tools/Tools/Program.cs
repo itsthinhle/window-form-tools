@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Tools.Services;
 using Tools.Services.VideoTrimming;
 
 namespace Tools;
@@ -17,9 +18,16 @@ internal static class Program
 
         var services = new ServiceCollection()
             .AddScoped<IVideoTrimmingService, VideoTrimmingService>()
+            .AddScoped<IFormSwitchingService, FormSwitchingService>()
+            .AddSingleton<IFormSettingsService, FormSettingsService>()
+            .AddSingleton<MainForm>()
             .AddTransient<VideoTrimmingForm>()
+            .AddTransient<Form1>()
             .BuildServiceProvider();
 
-        Application.Run(services.GetRequiredService<VideoTrimmingForm>());
+        // Load the app settings once
+        services.GetRequiredService<IFormSettingsService>().Load();
+
+        Application.Run(services.GetRequiredService<MainForm>());
     }
 }
