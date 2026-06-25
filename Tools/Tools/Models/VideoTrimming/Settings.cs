@@ -2,5 +2,5 @@
 
 internal class Settings
 {
-    public bool ShouldDeleteSourceVideoAfterTrimming { get; init; } = false;
+    public bool ShouldDeleteSourceVideoAfterTrimming { get; set; } = false;
 }

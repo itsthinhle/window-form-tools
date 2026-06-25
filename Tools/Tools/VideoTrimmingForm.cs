@@ -1,20 +1,39 @@
 using System.Diagnostics;
 using Tools.Constants;
 using Tools.Extensions;
+using Tools.Models.Settings;
 using Tools.Models.VideoTrimming;
+using Tools.Services;
 using Tools.Services.VideoTrimming;
 using Tools.Utilities;
 
 namespace Tools;
 
-internal partial class VideoTrimmingForm : Form
+internal partial class VideoTrimmingForm : Form, IForm
 {
     private readonly IVideoTrimmingService _videoTrimmingService;
+    private readonly IFormSettingsService _formSettingsService;
 
-    public VideoTrimmingForm(IVideoTrimmingService videoTrimmingService)
+    public VideoTrimmingForm(IVideoTrimmingService videoTrimmingService, IFormSettingsService formSettingsService)
     {
         InitializeComponent();
         _videoTrimmingService = videoTrimmingService;
+        _formSettingsService = formSettingsService;
+    }
+
+    private void VideoTrimmingForm_Load(object sender, EventArgs e)
+    {
+        LoadFormSettings();
+    }
+
+    public void LoadFormSettings()
+    {
+        _textBoxVideoPath.Text = _formSettingsService.AppSettings.VideoTrimmingFormSettings.InputVideoPath;
+        _textBoxOutputVideoName.Text = _formSettingsService.AppSettings.VideoTrimmingFormSettings.OutputVideoName;
+        _textBoxOutputFolderPath.Text = _formSettingsService.AppSettings.VideoTrimmingFormSettings.OutputFolderPath;
+        _richTextBoxTimeSegments.Lines = [.. _formSettingsService.AppSettings.VideoTrimmingFormSettings.TimeSegments];
+        _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked = _formSettingsService.AppSettings.VideoTrimmingFormSettings
+            .Settings.ShouldDeleteSourceVideoAfterTrimming;
     }
 
     private void TextBoxVideoPath_TextChanged(object sender, EventArgs e)
@@ -151,6 +170,17 @@ internal partial class VideoTrimmingForm : Form
             FileName = outputFolderPath,
             UseShellExecute = true
         });
+    }
+
+    private void ButtonSaveFormData_Click(object sender, EventArgs e)
+    {
+        _formSettingsService.AppSettings.VideoTrimmingFormSettings.InputVideoPath = _textBoxVideoPath.Text;
+        _formSettingsService.AppSettings.VideoTrimmingFormSettings.OutputVideoName = _textBoxOutputVideoName.Text;
+        _formSettingsService.AppSettings.VideoTrimmingFormSettings.OutputFolderPath = _textBoxOutputFolderPath.Text;
+        _formSettingsService.AppSettings.VideoTrimmingFormSettings.TimeSegments = _richTextBoxTimeSegments.Lines;
+        _formSettingsService.AppSettings.VideoTrimmingFormSettings.Settings.ShouldDeleteSourceVideoAfterTrimming = _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked;
+
+        _formSettingsService.Save();
     }
 
     private void AppendLog(string message)

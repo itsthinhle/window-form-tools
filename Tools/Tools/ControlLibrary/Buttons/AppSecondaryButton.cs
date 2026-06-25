@@ -8,7 +8,7 @@ internal class AppSecondaryButton : Button
         Cursor = Cursors.Hand;
         FlatAppearance.BorderColor = Color.LightGray;
         FlatAppearance.MouseDownBackColor = Color.White;
-        FlatAppearance.MouseOverBackColor = Color.White;
+        FlatAppearance.MouseOverBackColor = Color.WhiteSmoke;
         FlatStyle = FlatStyle.Flat;
         Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
         ForeColor = Color.Black;
