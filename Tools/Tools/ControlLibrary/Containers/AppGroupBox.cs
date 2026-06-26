@@ -7,6 +7,5 @@ internal class AppGroupBox : GroupBox
         Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
         Margin = new Padding(0);
         Padding = new Padding(9);
-        Dock = DockStyle.Fill;
     }
 }

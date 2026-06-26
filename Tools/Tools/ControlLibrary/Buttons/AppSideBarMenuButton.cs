@@ -10,6 +10,5 @@ internal class AppSideBarMenuButton : Button
         ForeColor = Color.White;
         Margin = new Padding(0);
         Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        UseVisualStyleBackColor = true;
     }
 }

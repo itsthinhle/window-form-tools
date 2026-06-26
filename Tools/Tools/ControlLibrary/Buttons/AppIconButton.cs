@@ -13,7 +13,6 @@ internal class AppIconButton : Button
         FlatStyle = FlatStyle.Flat;
         Margin = new Padding(0);
         Size = new Size(31, 31);
-        UseVisualStyleBackColor = false;
         Text = "";
     }
 }

@@ -14,7 +14,7 @@ internal class VideoTrimmingService : IVideoTrimmingService
         IProgress<string>? progress = null)
     {
         await TrimVideoByTimeSegments(videoTrimmingRequestModel, progress);
-        await ApplySelectedSettings(videoTrimmingRequestModel, progress);
+        await ApplySelectedOptions(videoTrimmingRequestModel, progress);
     }
 
     private static async Task TrimVideoByTimeSegments(VideoTrimmingRequestModel videoTrimmingRequestModel, IProgress<string>? progress)
@@ -43,9 +43,9 @@ internal class VideoTrimmingService : IVideoTrimmingService
         progress?.Report($"All time segments have been trimmed.{Environment.NewLine}");
     }
 
-    private async Task ApplySelectedSettings(VideoTrimmingRequestModel videoTrimmingRequestModel, IProgress<string>? progress)
+    private async Task ApplySelectedOptions(VideoTrimmingRequestModel videoTrimmingRequestModel, IProgress<string>? progress)
     {
-        if (videoTrimmingRequestModel.Settings.ShouldDeleteSourceVideoAfterTrimming)
+        if (videoTrimmingRequestModel.Options.ShouldDeleteSourceVideoAfterTrimming)
         {
             DeleteInputVideoFile(videoTrimmingRequestModel.InputVideoPath, progress);
         }
@@ -173,7 +173,7 @@ internal class VideoTrimmingService : IVideoTrimmingService
         process.Close();
     }
 
-    public void DeleteInputVideoFile(string inputFilePath, IProgress<string>? progress)
+    private void DeleteInputVideoFile(string inputFilePath, IProgress<string>? progress)
     {
         try
         {

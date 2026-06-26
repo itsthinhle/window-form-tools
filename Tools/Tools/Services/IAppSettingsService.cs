@@ -1,8 +1,8 @@
-﻿using Tools.Models.Settings;
+﻿using Tools.Models.AppSettings;
 
 namespace Tools.Services;
 
-internal interface IFormSettingsService
+internal interface IAppSettingsService
 {
     AppSettings AppSettings { get; }
 
