@@ -1,6 +1,6 @@
 ﻿namespace Tools.Models.VideoTrimming;
 
-internal class Settings
+internal class Options
 {
     public bool ShouldDeleteSourceVideoAfterTrimming { get; set; } = false;
 }

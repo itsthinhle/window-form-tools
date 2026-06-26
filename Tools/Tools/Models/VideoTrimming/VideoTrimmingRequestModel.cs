@@ -10,5 +10,5 @@ internal class VideoTrimmingRequestModel
 
     public required IReadOnlyList<string> TimeSegments { get; set; }
 
-    public required Settings Settings { get; set; }
+    public required Options Options { get; set; }
 }
