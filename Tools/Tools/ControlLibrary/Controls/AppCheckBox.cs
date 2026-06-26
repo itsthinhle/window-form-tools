@@ -7,6 +7,5 @@ internal class AppCheckBox : CheckBox
         AutoSize = true;
         Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(0);
-        UseVisualStyleBackColor = true;
     }
 }

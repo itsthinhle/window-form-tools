@@ -150,7 +150,7 @@ internal partial class VideoTrimmingForm : Form, IForm
         }
     }
 
-    private void ButtonOpenOutputFolder_Click(object sender, EventArgs e)
+    private void ButtonGoToOutputFolder_Click(object sender, EventArgs e)
     {
         var outputFolderPath = _textBoxOutputFolderPath.Text.Trim();
 

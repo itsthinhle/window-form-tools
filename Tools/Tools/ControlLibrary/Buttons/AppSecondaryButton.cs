@@ -4,7 +4,7 @@ internal class AppSecondaryButton : Button
 {
     public AppSecondaryButton()
     {
-        BackColor = Color.White;
+        BackColor = Color.Transparent;
         Cursor = Cursors.Hand;
         FlatAppearance.BorderColor = Color.LightGray;
         FlatAppearance.MouseDownBackColor = Color.White;
