@@ -2,5 +2,5 @@
 
 internal class AppSettings
 {
-    public VideoTrimmingFormSettings VideoTrimmingFormSettings { get; set; } = new();
+    public VideoTrimmingFormData VideoTrimmingFormData { get; set; } = new();
 }

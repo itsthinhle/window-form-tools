@@ -19,14 +19,14 @@ internal static class Program
         var services = new ServiceCollection()
             .AddScoped<IVideoTrimmingService, VideoTrimmingService>()
             .AddScoped<IFormSwitchingService, FormSwitchingService>()
-            .AddSingleton<IFormSettingsService, FormSettingsService>()
+            .AddSingleton<IAppSettingsService, AppSettingsService>()
             .AddSingleton<MainForm>()
             .AddTransient<VideoTrimmingForm>()
             .AddTransient<Form1>()
             .BuildServiceProvider();
 
         // Load the app settings once
-        services.GetRequiredService<IFormSettingsService>().Load();
+        services.GetRequiredService<IAppSettingsService>().Load();
 
         Application.Run(services.GetRequiredService<MainForm>());
     }

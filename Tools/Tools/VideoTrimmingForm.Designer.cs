@@ -459,7 +459,7 @@ partial class VideoTrimmingForm
         appGroupBox3.Size = new Size(749, 323);
         appGroupBox3.TabIndex = 1;
         appGroupBox3.TabStop = false;
-        appGroupBox3.Text = "AppSettings";
+        appGroupBox3.Text = "Options";
         // 
         // _checkBoxShouldDeleteSourceVideoAfterTrimming
         // 

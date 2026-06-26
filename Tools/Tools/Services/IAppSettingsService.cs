@@ -2,7 +2,7 @@
 
 namespace Tools.Services;
 
-internal interface IFormSettingsService
+internal interface IAppSettingsService
 {
     AppSettings AppSettings { get; }
 

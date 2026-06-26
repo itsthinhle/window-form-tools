@@ -1,6 +1,8 @@
-﻿namespace Tools.Models.Settings;
+﻿using Tools.Models.VideoTrimming;
 
-internal class VideoTrimmingFormSettings
+namespace Tools.Models.Settings;
+
+internal class VideoTrimmingFormData
 {
     public string InputVideoPath { get; set; } = string.Empty;
 
@@ -10,6 +12,6 @@ internal class VideoTrimmingFormSettings
 
     public IReadOnlyList<string> TimeSegments { get; set; } = [];
 
-    public VideoTrimming.Settings Settings { get; set; } = new();
+    public Options Options { get; set; } = new();
 
 }

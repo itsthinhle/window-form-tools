@@ -1,10 +1,9 @@
 ﻿using System.Text.Json;
 using Tools.Models.Settings;
-using Tools.Models.VideoTrimming;
 
 namespace Tools.Services;
 
-internal class FormSettingsService : IFormSettingsService
+internal class AppSettingsService : IAppSettingsService
 {
     private readonly string _settingsFilePath =
         Path.Combine(Application.StartupPath, "Settings.json");
