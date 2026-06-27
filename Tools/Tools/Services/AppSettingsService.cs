@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
-using Tools.Models.Settings;
+using Tools.Models.AppSettings;
 
 namespace Tools.Services;
 
 internal class AppSettingsService : IAppSettingsService
 {
     private readonly string _settingsFilePath =
-        Path.Combine(Application.StartupPath, "Settings.json");
+        Path.Combine(Application.StartupPath, "AppSettings.json");
 
     private static readonly JsonSerializerOptions _jsonWriteOptions = new()
     {

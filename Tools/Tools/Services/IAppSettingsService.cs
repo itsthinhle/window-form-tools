@@ -1,4 +1,4 @@
-﻿using Tools.Models.Settings;
+﻿using Tools.Models.AppSettings;
 
 namespace Tools.Services;
 
