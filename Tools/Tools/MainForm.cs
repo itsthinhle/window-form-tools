@@ -24,7 +24,7 @@ internal partial class MainForm : Form
 
     private void FileRenamingMenuButton_Click(object sender, EventArgs e)
     {
-        _formSwitchingService.ShowForm<Form1>(panel: _panelFormDisplay);        
+        _formSwitchingService.ShowForm<FilesRenamingForm>(panel: _panelFormDisplay);        
     }
 
     private void TelegramFilesUploaderMenuButton_Click(object sender, EventArgs e)

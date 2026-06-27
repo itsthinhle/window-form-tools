@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Tools.Services;
+using Tools.Services.FilesRenaming;
 using Tools.Services.VideoTrimming;
 
 namespace Tools;
@@ -18,11 +19,12 @@ internal static class Program
 
         var services = new ServiceCollection()
             .AddScoped<IVideoTrimmingService, VideoTrimmingService>()
+            .AddScoped<IFilesRenamingService, FilesRenamingService>()            
             .AddScoped<IFormSwitchingService, FormSwitchingService>()
             .AddSingleton<IAppSettingsService, AppSettingsService>()
             .AddSingleton<MainForm>()
             .AddTransient<VideoTrimmingForm>()
-            .AddTransient<Form1>()
+            .AddTransient<FilesRenamingForm>()
             .BuildServiceProvider();
 
         // Load the app settings once
