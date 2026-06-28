@@ -25,7 +25,7 @@ internal partial class FilesRenamingForm : Form, IForm
 
     private void ButtonBrowseFolder_Click(object sender, EventArgs e)
     {
-        _textBoxFolderPath.Text = FolderUtility.BrowseFolder();
+        _textBoxFolderPath.Text = FolderUtility.Browse();
     }
 
     private async void ButtonStart_Click(object sender, EventArgs e)
@@ -100,7 +100,10 @@ internal partial class FilesRenamingForm : Form, IForm
         _checkBoxShouldIncludeTimeStampInTheFileName.Checked =
             _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldIncludeTimeStampInTheFileName;
 
-        _textBoxTimeStampStringFormat.SetTextWhenEmpty(_appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat);
+        if (!string.IsNullOrWhiteSpace(_appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat))
+        {
+            _textBoxTimeStampStringFormat.Text = _appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat;
+        }
 
         _radioButtonShouldOrderFilesByName.Checked =
             _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByName;

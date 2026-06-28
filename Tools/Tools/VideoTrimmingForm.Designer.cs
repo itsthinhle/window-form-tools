@@ -86,15 +86,17 @@ partial class VideoTrimmingForm
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
         tableLayoutPanel1.Controls.Add(appGroupBox1, 0, 0);
+        tableLayoutPanel1.Controls.Add(_buttonStart, 0, 1);
         tableLayoutPanel1.Controls.Add(appTableLayout2, 1, 0);
-        tableLayoutPanel1.Controls.Add(appGroupBox4, 0, 1);
-        tableLayoutPanel1.Controls.Add(_buttonSaveFormData, 1, 2);
+        tableLayoutPanel1.Controls.Add(appGroupBox4, 0, 2);
+        tableLayoutPanel1.Controls.Add(_buttonSaveFormData, 1, 3);
         tableLayoutPanel1.Dock = DockStyle.Fill;
         tableLayoutPanel1.Location = new Point(18, 18);
         tableLayoutPanel1.Margin = new Padding(0);
         tableLayoutPanel1.Name = "tableLayoutPanel1";
-        tableLayoutPanel1.RowCount = 3;
+        tableLayoutPanel1.RowCount = 4;
         tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 65F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
         tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 35F));
         tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
         tableLayoutPanel1.Size = new Size(1515, 814);
@@ -102,20 +104,21 @@ partial class VideoTrimmingForm
         // 
         // appGroupBox1
         // 
+        appGroupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         appGroupBox1.Controls.Add(appTableLayout1);
-        appGroupBox1.Dock = DockStyle.Fill;
-        appGroupBox1.Font = new Font("Segoe UI Semibold", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        appGroupBox1.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
         appGroupBox1.Location = new Point(0, 0);
         appGroupBox1.Margin = new Padding(0, 0, 9, 9);
         appGroupBox1.Name = "appGroupBox1";
         appGroupBox1.Padding = new Padding(9);
-        appGroupBox1.Size = new Size(748, 497);
+        appGroupBox1.Size = new Size(748, 468);
         appGroupBox1.TabIndex = 0;
         appGroupBox1.TabStop = false;
         appGroupBox1.Text = "Input";
         // 
         // appTableLayout1
         // 
+        appTableLayout1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         appTableLayout1.ColumnCount = 1;
         appTableLayout1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
         appTableLayout1.Controls.Add(appPanel1, 0, 0);
@@ -123,8 +126,7 @@ partial class VideoTrimmingForm
         appTableLayout1.Controls.Add(appLabel2, 0, 1);
         appTableLayout1.Controls.Add(appNormalText1, 0, 2);
         appTableLayout1.Controls.Add(appPanel2, 0, 4);
-        appTableLayout1.Dock = DockStyle.Fill;
-        appTableLayout1.Location = new Point(9, 32);
+        appTableLayout1.Location = new Point(9, 33);
         appTableLayout1.Margin = new Padding(0);
         appTableLayout1.Name = "appTableLayout1";
         appTableLayout1.RowCount = 5;
@@ -135,7 +137,7 @@ partial class VideoTrimmingForm
         appTableLayout1.RowStyles.Add(new RowStyle());
         appTableLayout1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
         appTableLayout1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-        appTableLayout1.Size = new Size(730, 456);
+        appTableLayout1.Size = new Size(730, 426);
         appTableLayout1.TabIndex = 0;
         // 
         // appPanel1
@@ -227,15 +229,14 @@ partial class VideoTrimmingForm
         // 
         // appPanel2
         // 
+        appPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         appPanel2.BackColor = Color.Transparent;
         appPanel2.Controls.Add(_buttonClearTimeRanges);
         appPanel2.Controls.Add(_richTextBoxTimeSegments);
-        appPanel2.Controls.Add(_buttonStart);
-        appPanel2.Dock = DockStyle.Fill;
         appPanel2.Location = new Point(0, 176);
         appPanel2.Margin = new Padding(0);
         appPanel2.Name = "appPanel2";
-        appPanel2.Size = new Size(730, 280);
+        appPanel2.Size = new Size(730, 250);
         appPanel2.TabIndex = 4;
         // 
         // _buttonClearTimeRanges
@@ -261,9 +262,9 @@ partial class VideoTrimmingForm
         _richTextBoxTimeSegments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _richTextBoxTimeSegments.Font = new Font("Segoe UI", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
         _richTextBoxTimeSegments.Location = new Point(0, 0);
-        _richTextBoxTimeSegments.Margin = new Padding(0, 0, 0, 18);
+        _richTextBoxTimeSegments.Margin = new Padding(0);
         _richTextBoxTimeSegments.Name = "_richTextBoxTimeSegments";
-        _richTextBoxTimeSegments.Size = new Size(730, 217);
+        _richTextBoxTimeSegments.Size = new Size(730, 250);
         _richTextBoxTimeSegments.TabIndex = 1;
         _richTextBoxTimeSegments.Text = "";
         // 
@@ -271,15 +272,16 @@ partial class VideoTrimmingForm
         // 
         _buttonStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _buttonStart.BackColor = Color.Black;
+        tableLayoutPanel1.SetColumnSpan(_buttonStart, 2);
         _buttonStart.FlatAppearance.MouseDownBackColor = Color.Black;
         _buttonStart.FlatAppearance.MouseOverBackColor = Color.Black;
         _buttonStart.FlatStyle = FlatStyle.Flat;
         _buttonStart.Font = new Font("Segoe UI", 13F, FontStyle.Regular, GraphicsUnit.Point, 0);
         _buttonStart.ForeColor = Color.White;
-        _buttonStart.Location = new Point(0, 235);
+        _buttonStart.Location = new Point(0, 477);
         _buttonStart.Margin = new Padding(0);
         _buttonStart.Name = "_buttonStart";
-        _buttonStart.Size = new Size(730, 45);
+        _buttonStart.Size = new Size(1515, 45);
         _buttonStart.TabIndex = 0;
         _buttonStart.Text = "Start";
         _buttonStart.UseVisualStyleBackColor = false;
@@ -298,7 +300,7 @@ partial class VideoTrimmingForm
         appTableLayout2.RowCount = 2;
         appTableLayout2.RowStyles.Add(new RowStyle());
         appTableLayout2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        appTableLayout2.Size = new Size(758, 506);
+        appTableLayout2.Size = new Size(758, 477);
         appTableLayout2.TabIndex = 1;
         // 
         // appGroupBox2
@@ -456,7 +458,7 @@ partial class VideoTrimmingForm
         appGroupBox3.Margin = new Padding(9, 0, 0, 9);
         appGroupBox3.Name = "appGroupBox3";
         appGroupBox3.Padding = new Padding(9);
-        appGroupBox3.Size = new Size(749, 323);
+        appGroupBox3.Size = new Size(749, 294);
         appGroupBox3.TabIndex = 1;
         appGroupBox3.TabStop = false;
         appGroupBox3.Text = "Options";
@@ -475,27 +477,27 @@ partial class VideoTrimmingForm
         // 
         // appGroupBox4
         // 
+        appGroupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         tableLayoutPanel1.SetColumnSpan(appGroupBox4, 2);
         appGroupBox4.Controls.Add(_richTextBoxLogs);
-        appGroupBox4.Dock = DockStyle.Fill;
         appGroupBox4.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold);
-        appGroupBox4.Location = new Point(0, 506);
+        appGroupBox4.Location = new Point(0, 522);
         appGroupBox4.Margin = new Padding(0, 0, 0, 18);
         appGroupBox4.Name = "appGroupBox4";
         appGroupBox4.Padding = new Padding(9);
-        appGroupBox4.Size = new Size(1515, 254);
+        appGroupBox4.Size = new Size(1515, 238);
         appGroupBox4.TabIndex = 2;
         appGroupBox4.TabStop = false;
         appGroupBox4.Text = "Logs";
         // 
         // _richTextBoxLogs
         // 
-        _richTextBoxLogs.Dock = DockStyle.Fill;
+        _richTextBoxLogs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         _richTextBoxLogs.Font = new Font("Segoe UI", 13F);
         _richTextBoxLogs.Location = new Point(9, 33);
         _richTextBoxLogs.Margin = new Padding(0);
         _richTextBoxLogs.Name = "_richTextBoxLogs";
-        _richTextBoxLogs.Size = new Size(1497, 212);
+        _richTextBoxLogs.Size = new Size(1497, 196);
         _richTextBoxLogs.TabIndex = 0;
         _richTextBoxLogs.Text = "";
         // 

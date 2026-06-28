@@ -43,7 +43,7 @@ internal partial class VideoTrimmingForm : Form, IForm
         if (Directory.Exists(trimmedPath))
         {
             // Set Output folder path the same as the folder path
-            _textBoxOutputFolderPath.SetTextWhenEmpty(trimmedPath);
+            _textBoxOutputFolderPath.SetTextIfEmpty(trimmedPath);
 
             // Find the first video in the folder has its name contains the parent folder name,
             // set it as the video path, and set the parent folder name as the output video name.
@@ -56,7 +56,7 @@ internal partial class VideoTrimmingForm : Form, IForm
             if (pathOfMatchingVideoName != null)
             {
                 _textBoxVideoPath.Text = pathOfMatchingVideoName;
-                _textBoxOutputVideoName.SetTextWhenEmpty(folderName);
+                _textBoxOutputVideoName.SetTextIfEmpty(folderName);
             }
 
             // If no video name matching with the folder name, try to get the first video in the folder
@@ -81,29 +81,18 @@ internal partial class VideoTrimmingForm : Form, IForm
         else if (File.Exists(trimmedPath))
         {
             // Get the parent folder name and set as the output folder path
-            _textBoxOutputFolderPath.SetTextWhenEmpty(Path.GetDirectoryName(trimmedPath));
+            _textBoxOutputFolderPath.SetTextIfEmpty(Path.GetDirectoryName(trimmedPath));
 
             string parentFolderName = new FileInfo(trimmedPath).Directory?.Name ?? "";
-            _textBoxOutputVideoName.SetTextWhenEmpty(parentFolderName);
+            _textBoxOutputVideoName.SetTextIfEmpty(parentFolderName);
         }
     }
 
     private void ButtonBrowseVideo_Click(object sender, EventArgs e)
     {
-        OpenFileDialog openFileDialog = new()
-        {
-            Title = "Browse video",
-            Filter = OpenFileDialogUtility.BuildFilterForOpenFileDialog(
-                "Videos",
-                FileExtensionConstants.VIDEO_FILE_EXTENSIONS)
-        };
-
-        DialogResult dialogResult = openFileDialog.ShowDialog();
-
-        if (dialogResult == DialogResult.OK)
-        {
-            _textBoxVideoPath.Text = openFileDialog.FileName;
-        }
+        _textBoxVideoPath.Text = FileUtility.Browse(
+            OpenFileDialogUtility.BuildFilterForOpenFileDialog(
+                "Videos", FileExtensionConstants.VIDEO_FILE_EXTENSIONS));
     }
 
     private void ButtonClearTimeRanges_Click(object sender, EventArgs e)
@@ -127,10 +116,9 @@ internal partial class VideoTrimmingForm : Form, IForm
 
         var progress = new Progress<string>(AppendLog);
 
-        await _videoTrimmingService.StartAsync(request, progress);
-
         try
         {
+            await _videoTrimmingService.StartAsync(request, progress);
         }
         catch (Exception exception)
         {
@@ -140,13 +128,7 @@ internal partial class VideoTrimmingForm : Form, IForm
 
     private void ButtonBrowseOutputFolder_Click(object sender, EventArgs e)
     {
-        FolderBrowserDialog folderBrowserDialog = new();
-        DialogResult dialogResult = new FolderBrowserDialog().ShowDialog();
-
-        if (dialogResult == DialogResult.OK)
-        {
-            _textBoxOutputFolderPath.Text = folderBrowserDialog.SelectedPath;
-        }
+        _textBoxOutputFolderPath.Text = FolderUtility.Browse();
     }
 
     private void ButtonGoToOutputFolder_Click(object sender, EventArgs e)
