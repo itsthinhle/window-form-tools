@@ -2,7 +2,7 @@
 
 internal class FolderUtility
 {
-    public static string BrowseFolder()
+    public static string Browse()
     {
         using FolderBrowserDialog folderBrowserDialog = new();
         return folderBrowserDialog.ShowDialog() == DialogResult.OK ? folderBrowserDialog.SelectedPath : "";

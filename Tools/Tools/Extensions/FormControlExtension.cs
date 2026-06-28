@@ -8,7 +8,7 @@ internal static class FormControlExtension
     /// </summary>
     /// <param name="formControl"></param>
     /// <param name="text"></param>
-    public static void SetTextWhenEmpty(this Control formControl, string? text)
+    public static void SetTextIfEmpty(this Control formControl, string? text)
     {
         if (string.IsNullOrEmpty(formControl.Text))
         {
