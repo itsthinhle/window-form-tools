@@ -1,5 +1,4 @@
-﻿using Tools.Extensions;
-using Tools.Models.FilesRenaming;
+﻿using Tools.Models.FilesRenaming;
 using Tools.Services;
 using Tools.Services.FilesRenaming;
 using Tools.Utilities;
@@ -10,12 +9,14 @@ internal partial class FilesRenamingForm : Form, IForm
 {
     private readonly IFilesRenamingService _filesRenamingService;
     private readonly IAppSettingsService _appSettingsService;
+    private readonly IProgress<string> _loggingProgress;
 
     public FilesRenamingForm(IFilesRenamingService filesRenamingService, IAppSettingsService appSettingsService)
     {
         InitializeComponent();
         _filesRenamingService = filesRenamingService;
         _appSettingsService = appSettingsService;
+        _loggingProgress = new Progress<string>(AppendLog);
     }
 
     private void FilesRenamingForm_Load(object sender, EventArgs e)
@@ -30,7 +31,7 @@ internal partial class FilesRenamingForm : Form, IForm
 
     private async void ButtonStart_Click(object sender, EventArgs e)
     {
-        var request = new FilesRenamingRequestModel
+        var request = new Request
         {
             InputFolderPath = _textBoxFolderPath.Text.Trim(),
             OutputFileName = _textBoxOutputFileName.Text.Trim(),
@@ -47,15 +48,13 @@ internal partial class FilesRenamingForm : Form, IForm
             }
         };
 
-        var progress = new Progress<string>(AppendLog);
-
         try
         {
-            await _filesRenamingService.StartAsync(request, progress);
+            await _filesRenamingService.StartAsync(request, _loggingProgress);
         }
         catch (Exception exception)
         {
-            AppendLog($"{exception.Message}{Environment.NewLine}");
+            _loggingProgress.Report($"{exception.Message}{Environment.NewLine}");
         }
     }
 
@@ -95,24 +94,24 @@ internal partial class FilesRenamingForm : Form, IForm
         _textBoxOutputFileDescription.Text = _appSettingsService.AppSettings.FilesRenamingFormData.OutputFileDescription;
 
         _checkBoxShouldKeepOriginalFileNameAndOnlyAppendFileDescription.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldKeepOriginalFileNameAndOnlyAppendFileDescription;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldKeepOriginalFileNameAndOnlyAppendFileDescription;
 
         _checkBoxShouldIncludeTimeStampInTheFileName.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldIncludeTimeStampInTheFileName;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldIncludeTimeStampInTheFileName;
 
-        if (!string.IsNullOrWhiteSpace(_appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat))
+        if (!string.IsNullOrWhiteSpace(_appSettingsService.AppSettings.FilesRenamingFormData.TimeStampStringFormat))
         {
-            _textBoxTimeStampStringFormat.Text = _appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat;
+            _textBoxTimeStampStringFormat.Text = _appSettingsService.AppSettings.FilesRenamingFormData.TimeStampStringFormat;
         }
 
         _radioButtonShouldOrderFilesByName.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByName;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByName;
         _radioButtonShouldOrderFilesByLastModifiedDate.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByLastModifiedDate;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByLastModifiedDate;
         _radioButtonShouldOrderFilesByCreationDate.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByCreationDate;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByCreationDate;
         _radioButtonShouldNotOrderFiles.Checked =
-            _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldNotOrderFiles;
+            _appSettingsService.AppSettings.FilesRenamingFormData.ShouldNotOrderFiles;
     }
 
     private void ButtonSaveFormData_Click(object sender, EventArgs e)
@@ -121,18 +120,18 @@ internal partial class FilesRenamingForm : Form, IForm
         _appSettingsService.AppSettings.FilesRenamingFormData.OutputFileName = _textBoxOutputFileName.Text;
         _appSettingsService.AppSettings.FilesRenamingFormData.OutputFileDescription = _textBoxOutputFileDescription.Text;
 
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldKeepOriginalFileNameAndOnlyAppendFileDescription = _checkBoxShouldKeepOriginalFileNameAndOnlyAppendFileDescription.Checked;
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldKeepOriginalFileNameAndOnlyAppendFileDescription = _checkBoxShouldKeepOriginalFileNameAndOnlyAppendFileDescription.Checked;
 
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldIncludeTimeStampInTheFileName = _checkBoxShouldIncludeTimeStampInTheFileName.Checked;
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.TimeStampStringFormat = _textBoxTimeStampStringFormat.Text;
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldIncludeTimeStampInTheFileName = _checkBoxShouldIncludeTimeStampInTheFileName.Checked;
+        _appSettingsService.AppSettings.FilesRenamingFormData.TimeStampStringFormat = _textBoxTimeStampStringFormat.Text;
 
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByName =
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByName =
             _radioButtonShouldOrderFilesByName.Checked;
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByLastModifiedDate =
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByLastModifiedDate =
             _radioButtonShouldOrderFilesByLastModifiedDate.Checked;
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldOrderFilesByCreationDate =
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldOrderFilesByCreationDate =
             _radioButtonShouldOrderFilesByCreationDate.Checked;
-        _appSettingsService.AppSettings.FilesRenamingFormData.Options.ShouldNotOrderFiles =
+        _appSettingsService.AppSettings.FilesRenamingFormData.ShouldNotOrderFiles =
             _radioButtonShouldNotOrderFiles.Checked;
 
         _appSettingsService.Save();

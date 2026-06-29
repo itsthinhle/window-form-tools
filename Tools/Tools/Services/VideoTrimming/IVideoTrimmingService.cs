@@ -4,5 +4,5 @@ namespace Tools.Services.VideoTrimming;
 
 internal interface IVideoTrimmingService
 {
-    Task StartAsync(VideoTrimmingRequestModel request, IProgress<string>? progress = null);
+    Task StartAsync(Request request, IProgress<string>? progress = null);
 }
