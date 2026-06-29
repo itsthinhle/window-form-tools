@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="11.0.0-preview.5.26302.115" />
+    <PackageReference Include="WTelegramClient" Version="4.4.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,7 +64,7 @@
 
   <ItemGroup>
     <None Update="AppSettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -29,6 +29,6 @@ internal partial class MainForm : Form
 
     private void TelegramFilesUploaderMenuButton_Click(object sender, EventArgs e)
     {
-
+        _formSwitchingService.ShowForm<TelegramUploaderForm>(panel: _panelFormDisplay);
     }
 }

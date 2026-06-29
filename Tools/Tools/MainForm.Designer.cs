@@ -51,7 +51,7 @@ partial class MainForm
         appTableLayout1.Name = "appTableLayout1";
         appTableLayout1.RowCount = 1;
         appTableLayout1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        appTableLayout1.Size = new Size(1484, 1041);
+        appTableLayout1.Size = new Size(1612, 1041);
         appTableLayout1.TabIndex = 0;
         // 
         // appPanel1
@@ -126,11 +126,12 @@ partial class MainForm
         // 
         // _panelFormDisplay
         // 
+        _panelFormDisplay.BackColor = Color.Transparent;
         _panelFormDisplay.Dock = DockStyle.Fill;
         _panelFormDisplay.Location = new Point(250, 0);
         _panelFormDisplay.Margin = new Padding(0);
         _panelFormDisplay.Name = "_panelFormDisplay";
-        _panelFormDisplay.Size = new Size(1234, 1041);
+        _panelFormDisplay.Size = new Size(1362, 1041);
         _panelFormDisplay.TabIndex = 1;
         // 
         // MainForm
@@ -138,9 +139,9 @@ partial class MainForm
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
-        ClientSize = new Size(1484, 1041);
+        ClientSize = new Size(1612, 1041);
         Controls.Add(appTableLayout1);
-        MinimumSize = new Size(1500, 1080);
+        MinimumSize = new Size(1600, 1080);
         Name = "MainForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Tools";

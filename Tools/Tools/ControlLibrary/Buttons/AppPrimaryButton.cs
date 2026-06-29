@@ -4,7 +4,7 @@ internal class AppPrimaryButton : Button
 {
     public AppPrimaryButton()
     {
-        BackColor = Color.Black;
+        BackColor = Color.SteelBlue;
         Cursor = Cursors.Hand;
         FlatAppearance.MouseDownBackColor = Color.Black;
         FlatAppearance.MouseOverBackColor = Color.Black;
