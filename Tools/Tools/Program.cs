@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Tools.Services;
 using Tools.Services.FilesRenaming;
+using Tools.Services.TelegramUploader;
 using Tools.Services.VideoTrimming;
 
 namespace Tools;
@@ -19,12 +20,14 @@ internal static class Program
 
         var services = new ServiceCollection()
             .AddScoped<IVideoTrimmingService, VideoTrimmingService>()
-            .AddScoped<IFilesRenamingService, FilesRenamingService>()            
+            .AddScoped<IFilesRenamingService, FilesRenamingService>()
+            .AddScoped<ITelegramService, TelegramUploaderService>()
             .AddScoped<IFormSwitchingService, FormSwitchingService>()
             .AddSingleton<IAppSettingsService, AppSettingsService>()
             .AddSingleton<MainForm>()
             .AddTransient<VideoTrimmingForm>()
             .AddTransient<FilesRenamingForm>()
+            .AddTransient<TelegramUploaderForm>()
             .BuildServiceProvider();
 
         // Load the app settings once
