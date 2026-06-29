@@ -2,11 +2,11 @@
 
 internal class Options
 {
-    public bool ShouldKeepOriginalFileNameAndOnlyAppendFileDescription { get; set; } = false;
-    public bool ShouldIncludeTimeStampInTheFileName { get; set; } = true;
-    public string TimeStampStringFormat { get; set; } = string.Empty;
-    public bool ShouldOrderFilesByName { get; set; } = false;
-    public bool ShouldOrderFilesByLastModifiedDate { get; set; } = false;
-    public bool ShouldOrderFilesByCreationDate { get; set; } = false;
-    public bool ShouldNotOrderFiles { get; set; } = true;
+    public bool ShouldKeepOriginalFileNameAndOnlyAppendFileDescription { get; init; } = false;
+    public bool ShouldIncludeTimeStampInTheFileName { get; init; } = true;
+    public string TimeStampStringFormat { get; init; } = string.Empty;
+    public bool ShouldOrderFilesByName { get; init; } = false;
+    public bool ShouldOrderFilesByLastModifiedDate { get; init; } = false;
+    public bool ShouldOrderFilesByCreationDate { get; init; } = false;
+    public bool ShouldNotOrderFiles { get; init; } = true;
 }

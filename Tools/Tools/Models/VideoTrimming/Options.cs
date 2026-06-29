@@ -2,5 +2,5 @@
 
 internal class Options
 {
-    public bool ShouldDeleteSourceVideoAfterTrimming { get; set; } = false;
+    public bool ShouldDeleteSourceVideoAfterTrimming { get; init; } = false;
 }

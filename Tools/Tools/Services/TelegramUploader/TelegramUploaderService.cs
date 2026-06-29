@@ -215,7 +215,7 @@ internal class TelegramUploaderService : ITelegramService
                 //    and another dot followed by one or more alphanumeric characters.
                 if (!Regex.IsMatch(uploadFilesRequest.Options.UserSpecifiedExtensions.Trim(), @"^\.[A-Za-z0-9]+(?:,\s*\.[A-Za-z0-9]+)*$"))
                 {
-                    throw new InvalidDataException("Error! Your specified file extensions are not in a valid format.");
+                    throw new FormatException("Error! Your specified file extensions are not in a valid format.");
                 }
             }
         }

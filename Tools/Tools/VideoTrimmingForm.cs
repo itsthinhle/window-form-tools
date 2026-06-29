@@ -12,27 +12,19 @@ internal partial class VideoTrimmingForm : Form, IForm
 {
     private readonly IVideoTrimmingService _videoTrimmingService;
     private readonly IAppSettingsService _appSettingsService;
+    private readonly IProgress<string> _loggingProgress;
 
     public VideoTrimmingForm(IVideoTrimmingService videoTrimmingService, IAppSettingsService appSettingsService)
     {
         InitializeComponent();
         _videoTrimmingService = videoTrimmingService;
         _appSettingsService = appSettingsService;
+        _loggingProgress = new Progress<string>(AppendLog);
     }
 
     private void VideoTrimmingForm_Load(object sender, EventArgs e)
     {
         LoadFormSettings();
-    }
-
-    public void LoadFormSettings()
-    {
-        _textBoxVideoPath.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.InputVideoPath;
-        _textBoxOutputVideoName.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.OutputVideoName;
-        _textBoxOutputFolderPath.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.OutputFolderPath;
-        _richTextBoxTimeSegments.Lines = [.. _appSettingsService.AppSettings.VideoTrimmingFormData.TimeSegments];
-        _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked = _appSettingsService.AppSettings.VideoTrimmingFormData
-            .Options.ShouldDeleteSourceVideoAfterTrimming;
     }
 
     private void TextBoxVideoPath_TextChanged(object sender, EventArgs e)
@@ -102,7 +94,7 @@ internal partial class VideoTrimmingForm : Form, IForm
 
     private async void ButtonStart_Click(object sender, EventArgs e)
     {
-        var request = new VideoTrimmingRequestModel
+        var request = new Request
         {
             InputVideoPath = _textBoxVideoPath.Text.Trim(),
             OutputVideoName = _textBoxOutputVideoName.Text.Trim(),
@@ -114,15 +106,13 @@ internal partial class VideoTrimmingForm : Form, IForm
             }
         };
 
-        var progress = new Progress<string>(AppendLog);
-
         try
         {
-            await _videoTrimmingService.StartAsync(request, progress);
+            await _videoTrimmingService.StartAsync(request, _loggingProgress);
         }
         catch (Exception exception)
         {
-            AppendLog($"{exception.Message}{Environment.NewLine}");
+            _loggingProgress.Report($"{exception.Message}{Environment.NewLine}");
         }
     }
 
@@ -153,13 +143,23 @@ internal partial class VideoTrimmingForm : Form, IForm
         });
     }
 
+    public void LoadFormSettings()
+    {
+        _textBoxVideoPath.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.InputVideoPath;
+        _textBoxOutputVideoName.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.OutputVideoName;
+        _textBoxOutputFolderPath.Text = _appSettingsService.AppSettings.VideoTrimmingFormData.OutputFolderPath;
+        _richTextBoxTimeSegments.Lines = [.. _appSettingsService.AppSettings.VideoTrimmingFormData.TimeSegments];
+        _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked = _appSettingsService.AppSettings.VideoTrimmingFormData
+            .ShouldDeleteSourceVideoAfterTrimming;
+    }
+
     private void ButtonSaveFormData_Click(object sender, EventArgs e)
     {
         _appSettingsService.AppSettings.VideoTrimmingFormData.InputVideoPath = _textBoxVideoPath.Text;
         _appSettingsService.AppSettings.VideoTrimmingFormData.OutputVideoName = _textBoxOutputVideoName.Text;
         _appSettingsService.AppSettings.VideoTrimmingFormData.OutputFolderPath = _textBoxOutputFolderPath.Text;
         _appSettingsService.AppSettings.VideoTrimmingFormData.TimeSegments = _richTextBoxTimeSegments.Lines;
-        _appSettingsService.AppSettings.VideoTrimmingFormData.Options.ShouldDeleteSourceVideoAfterTrimming = _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked;
+        _appSettingsService.AppSettings.VideoTrimmingFormData.ShouldDeleteSourceVideoAfterTrimming = _checkBoxShouldDeleteSourceVideoAfterTrimming.Checked;
 
         _appSettingsService.Save();
     }

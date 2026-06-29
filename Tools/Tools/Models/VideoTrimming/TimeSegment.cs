@@ -1,6 +1,6 @@
 ﻿namespace Tools.Models.VideoTrimming;
 
-internal class TimeSegmentModel
+internal class TimeSegment
 {
     public int FromSecond { get; set; }
     public int TotalTrimSeconds { get; set; }

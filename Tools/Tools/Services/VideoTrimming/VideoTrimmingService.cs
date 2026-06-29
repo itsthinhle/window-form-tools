@@ -10,14 +10,14 @@ namespace Tools.Services.VideoTrimming;
 internal class VideoTrimmingService : IVideoTrimmingService
 {
     public async Task StartAsync(
-        VideoTrimmingRequestModel videoTrimmingRequestModel, 
+        Request videoTrimmingRequestModel, 
         IProgress<string>? progress = null)
     {
         await TrimVideoByTimeSegments(videoTrimmingRequestModel, progress);
         await ApplySelectedOptions(videoTrimmingRequestModel, progress);
     }
 
-    private static async Task TrimVideoByTimeSegments(VideoTrimmingRequestModel videoTrimmingRequestModel, IProgress<string>? progress)
+    private static async Task TrimVideoByTimeSegments(Request videoTrimmingRequestModel, IProgress<string>? progress)
     {
         ValidateRequest(videoTrimmingRequestModel);
 
@@ -43,7 +43,7 @@ internal class VideoTrimmingService : IVideoTrimmingService
         progress?.Report($"All time segments have been trimmed.{Environment.NewLine}");
     }
 
-    private static async Task ApplySelectedOptions(VideoTrimmingRequestModel videoTrimmingRequestModel, IProgress<string>? progress)
+    private static async Task ApplySelectedOptions(Request videoTrimmingRequestModel, IProgress<string>? progress)
     {
         if (videoTrimmingRequestModel.Options.ShouldDeleteSourceVideoAfterTrimming)
         {
@@ -51,7 +51,7 @@ internal class VideoTrimmingService : IVideoTrimmingService
         }
     }
 
-    private static void ValidateRequest(VideoTrimmingRequestModel request)
+    private static void ValidateRequest(Request request)
     {
         if (string.IsNullOrWhiteSpace(request.InputVideoPath) || !File.Exists(request.InputVideoPath))
         {
@@ -64,11 +64,11 @@ internal class VideoTrimmingService : IVideoTrimmingService
         }
     }
 
-    private static TimeSegmentModel CreateTimeSegmentModel(string timeSegmentText)
+    private static TimeSegment CreateTimeSegmentModel(string timeSegmentText)
     {
         var timeSegmentComponents = timeSegmentText.Split('/');
 
-        var timeSegmentModel = new TimeSegmentModel
+        var timeSegmentModel = new TimeSegment
         {
             FromSecond = CalculateTotalSeconds(timeSegmentComponents[0])
         };
@@ -115,7 +115,7 @@ internal class VideoTrimmingService : IVideoTrimmingService
             : Convert.ToInt32(new TimeSpan(hours, minutes, seconds).TotalSeconds);
     }
 
-    private static string CreateFFmpegCommand(VideoTrimmingRequestModel videoTrimmingRequestModel, int index, TimeSegmentModel timeSegmentModel)
+    private static string CreateFFmpegCommand(Request videoTrimmingRequestModel, int index, TimeSegment timeSegmentModel)
     {
         var outputFileName = $"{videoTrimmingRequestModel.OutputVideoName}_{index}";
 

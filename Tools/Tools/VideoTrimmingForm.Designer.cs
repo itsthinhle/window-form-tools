@@ -271,7 +271,7 @@ partial class VideoTrimmingForm
         // _buttonStart
         // 
         _buttonStart.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        _buttonStart.BackColor = Color.Black;
+        _buttonStart.BackColor = Color.SteelBlue;
         tableLayoutPanel1.SetColumnSpan(_buttonStart, 2);
         _buttonStart.FlatAppearance.MouseDownBackColor = Color.Black;
         _buttonStart.FlatAppearance.MouseOverBackColor = Color.Black;

@@ -5,7 +5,7 @@ using Tools.Utilities;
 
 namespace Tools;
 
-internal partial class TelegramUploaderForm : Form
+internal partial class TelegramUploaderForm : Form, IForm
 {
     private readonly ITelegramService _telegramUploaderService;
     private readonly IAppSettingsService _appSettingsService;
@@ -91,7 +91,7 @@ internal partial class TelegramUploaderForm : Form
         }
         catch (Exception exception)
         {
-            AppendLog($"{exception.Message}{Environment.NewLine}");
+            _loggingProgress.Report($"{exception.Message}{Environment.NewLine}");
         }
         finally
         {
@@ -99,6 +99,20 @@ internal partial class TelegramUploaderForm : Form
             _groupBoxInput.Enabled = true;
             _groupBoxOptions.Enabled = true;
         }
+    }
+
+    public void LoadFormSettings()
+    {
+        _textBoxAppId.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.AppId;
+        _textBoxAppHashCode.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.AppHashCode;
+        _textBoxPhoneNumber.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.PhoneNumber;
+
+        _textBoxInputFolderPath.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.InputFolderPath;
+
+        _checkBoxHasUserSpecifiedExtensions.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.HasUserSpecifiedExtensions;
+        _textBoxUserSpecifiedExtensions.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.UserSpecifiedExtensions;
+        _checkBoxShouldIncludeNestedFiles.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.ShouldIncludeNestedFiles;
+        _checkBoxShouldDeleteSourceFileAfterUploading.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.ShouldDeleteSourceFileAfterUploaded;
     }
 
     private void ButtonSaveFormData_Click(object sender, EventArgs e)
@@ -115,20 +129,6 @@ internal partial class TelegramUploaderForm : Form
         _appSettingsService.AppSettings.TelegramUploaderFormData.ShouldDeleteSourceFileAfterUploaded = _checkBoxShouldDeleteSourceFileAfterUploading.Checked;
 
         _appSettingsService.Save();
-    }
-
-    private void LoadFormSettings()
-    {
-        _textBoxAppId.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.AppId;
-        _textBoxAppHashCode.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.AppHashCode;
-        _textBoxPhoneNumber.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.PhoneNumber;
-
-        _textBoxInputFolderPath.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.InputFolderPath;
-
-        _checkBoxHasUserSpecifiedExtensions.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.HasUserSpecifiedExtensions;
-        _textBoxUserSpecifiedExtensions.Text = _appSettingsService.AppSettings.TelegramUploaderFormData.UserSpecifiedExtensions;
-        _checkBoxShouldIncludeNestedFiles.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.ShouldIncludeNestedFiles;
-        _checkBoxShouldDeleteSourceFileAfterUploading.Checked = _appSettingsService.AppSettings.TelegramUploaderFormData.ShouldDeleteSourceFileAfterUploaded;
     }
 
     // Try to connect to the Telegram client during the form loading state
